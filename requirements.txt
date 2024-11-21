@@ -1,2 +1,4 @@
-fastapi[all]
+fastapi[all]~=0.115.5
 requests
+SQLAlchemy~=2.0.36
+pydantic~=2.9.2
