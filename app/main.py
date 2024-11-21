@@ -29,9 +29,8 @@ def get_film_by_id(film_id: int):
 
     return return_list
 
+
 # TODO
 @app.get("/films")
 def get_film_by_parameters(genre: Optional[str] = None, year: Optional[int] = None, imdb_rating: Optional[str] = None):
     return {"message": "Это надо сделать будет короче но потом"}
-
-
