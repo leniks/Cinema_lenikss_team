@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  cinema_db:
+    image: postgres:latest
+    container_name: cinema_db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: cinema
+      POSTGRES_DB: cinema
+    ports:
+      - "5432:5432"  # Пробрасываем порт 5432
+    volumes:
+      - cinema_data:/var/lib/postgresql/data  # Для хранения данных
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d cinema"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  cinema_data:
