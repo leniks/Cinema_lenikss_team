@@ -4,10 +4,12 @@ from typing import Annotated
 from sqlalchemy import func
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncAttrs
 from sqlalchemy.orm import DeclarativeBase, declared_attr, Mapped, mapped_column
+
 from app.config import get_db_url
 
 
 DATABASE_URL = get_db_url()
+
 engine = create_async_engine(DATABASE_URL, echo=True)
 async_session_maker = async_sessionmaker(engine, expire_on_commit=False)
 
@@ -23,9 +25,9 @@ class Base(AsyncAttrs, DeclarativeBase):
     __abstract__ = True
     id: Mapped[int_pk]
 
-    @declared_attr.directive
-    def __tablename__(self) -> str:
-        return f"{self.__name__.lower()}s"
+    # @declared_attr.directive
+    # def __tablename__(self) -> str:
+    #     return f"{self.__name__.lower()}s"
 
     created_at: Mapped[created_at]
     updated_at: Mapped[updated_at]
