@@ -1,2 +1,3 @@
-uvicorn app.main:app --reload (запуск сервиса из корня)
 docker-compose up -d (развертывание бд из корня)
+
+uvicorn app.main:app --reload (запуск сервиса из корня)

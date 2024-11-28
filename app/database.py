@@ -8,7 +8,7 @@ from app.config import get_db_url
 
 
 DATABASE_URL = get_db_url()
-engine = create_async_engine(DATABASE_URL)
+engine = create_async_engine(DATABASE_URL, echo=True)
 async_session_maker = async_sessionmaker(engine, expire_on_commit=False)
 
 # настройка аннотаций
@@ -21,6 +21,7 @@ str_null_true = Annotated[str, mapped_column(nullable=True)]
 
 class Base(AsyncAttrs, DeclarativeBase):
     __abstract__ = True
+    id: Mapped[int_pk]
 
     @declared_attr.directive
     def __tablename__(self) -> str:
