@@ -5,25 +5,6 @@ from typing import Optional
 import re
 
 
-class Film(BaseModel):
-    film_id: int
-    title: str = Field(..., min_length=1, max_length=50, description="Название фильма, от 1 до 50 символов")
-    description: Optional[str] = Field(default=None, max_length=500,
-                                       description="Описание фильма, не более 500 символов")
-    release_date: date = Field(..., description="Дата выхода фильма в формате ГГГГ-ММ-ДД")
-    duration: int = Field(..., ge=0, description="Продолжительность в минутах")
-    rating_imdb: float = Field(ge=0.0, le=10.0, description="Рейтинг фильма на IMDb")
-    poster_url: str = Field(description="URL постера фильма")
-    created_at: datetime = Field(default_factory=datetime.utcnow)
-    updated_at: datetime = Field(default_factory=datetime.utcnow)
-
-    @field_validator('release_date')
-    def check_release_date(cls, value):
-        if value > date.today():
-            raise ValueError("Дата выхода не может быть в будущем.")
-        return value
-
-
 class User(BaseModel):
     user_id: int
     username: str = Field(..., min_length=1, max_length=50, description="Имя пользователя от 1 до 50 символов")
