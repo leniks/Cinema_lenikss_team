@@ -1,9 +1,7 @@
 docker-compose up -d (развертывание бд из корня)
 
-uvicorn app.main:app --reload (запуск сервиса из корня)
-
-alembic init -t async migration (инициализация алембика)
-
 alembic revision --autogenerate -m "Migration" (создание миграции)
 
 alembic upgrade head (применение миграции)
+
+uvicorn app.main:app --reload (запуск сервиса из корня) 
