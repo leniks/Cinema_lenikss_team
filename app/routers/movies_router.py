@@ -22,5 +22,5 @@ async def get_movies_by_parameters(request_body: RBMovie = Depends()):
     return await MovieService.get_movies_by_parameters(**request_body.to_dict())
 
 @router.get("/{id}", summary="Получить фильм по id")
-async def get_movie_or_none_by_id(movie_id: int) -> SMovie | None:
+async def get_movie_or_none_by_id(movie_id: int):
     return await MovieService.get_movie_or_none_by_id(movie_id)
