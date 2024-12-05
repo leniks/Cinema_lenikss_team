@@ -18,6 +18,9 @@ class Movie(Base):
     poster_url: Mapped[str_null_true]
 
     reviews: Mapped[list["Review"]] = relationship("Review", back_populates="movie")
-    genres: Mapped[list["Genre"]] = relationship("Genre", secondary=movie_genres, back_populates="movies")
+    genres: Mapped[list["Genre"]] = relationship("Genre",
+                                                 secondary=movie_genres,
+                                                 back_populates="movies",
+                                                 lazy='joined')
     favorites: Mapped[list["Favorite"]] = relationship("Favorite", back_populates="movie")
     watchlists: Mapped[list["Watchlist"]] = relationship("Watchlist", back_populates="movie")

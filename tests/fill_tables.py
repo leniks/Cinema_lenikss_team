@@ -139,15 +139,15 @@ watchlists_data = [
 
 
 async def clear_tables(session):
-    await session.execute(text("DELETE FROM movies"))
     await session.execute(text("DELETE FROM favorites"))
-    await session.execute(text("DELETE FROM genres"))
     await session.execute(text("DELETE FROM movie_genres"))
     await session.execute(text("DELETE FROM reviews"))
     await session.execute(text("DELETE FROM users"))
     await session.execute(text("DELETE FROM watchlists"))
+    await session.execute(text("DELETE FROM movies"))
+    await session.execute(text("DELETE FROM genres"))
 
-def return_true_with_probability():
+async def return_true_with_probability():
     return random.random() < 0.2  # 0.2 соответствует 20%
 
 async def fill_database():
@@ -181,23 +181,17 @@ async def fill_database():
 
             await session.flush()  # Сохраняем жанры, чтобы получить их ID
 
-            result = await session.execute(select(Movie))
-            # Извлекаем объекты фильмов из результата
-            movies = result.scalars().all()
-
-            result = await session.execute(select(Genre))
-            # Извлекаем объекты фильмов из результата
-            genres = result.scalars().all()
-
             for movie in movies:
                 for genre in genres:
-                    if return_true_with_probability():
+                    if await return_true_with_probability():
                         print(f"Adding genre {genre.id} to movie {movie.id}")
-                        await_only(movie.genres.append(genre))
+                        await session.refresh(movie)
+                        await session.refresh(genre)
+                        movie.genres.append(genre)
+
+            session.add(new_movie)
 
             await session.commit()
-
-
 
 if __name__ == "__main__":
     asyncio.run(fill_database())

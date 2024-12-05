@@ -11,4 +11,7 @@ class Genre(Base):
 
     name: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
 
-    movies: Mapped[list["Movie"]] = relationship("Movie", secondary=movie_genres, back_populates="genres")
+    movies: Mapped[list["Movie"]] = relationship("Movie",
+                                                 secondary=movie_genres,
+                                                 back_populates="genres",
+                                                 lazy='joined')
