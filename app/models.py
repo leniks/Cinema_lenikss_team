@@ -5,15 +5,6 @@ from typing import Optional
 import re
 
 
-class User(BaseModel):
-    user_id: int
-    username: str = Field(..., min_length=1, max_length=50, description="Имя пользователя от 1 до 50 символов")
-    email: EmailStr
-    hashed_password: str = Field(..., min_length=8, description="Хэшированный пароль (минимум 8 символов)")
-    created_at: datetime = Field(default_factory=datetime.utcnow)
-    updated_at: datetime = Field(default_factory=datetime.utcnow)
-
-
 class Genre(BaseModel):
     genre_id: int
     name: str = Field(..., min_length=1, max_length=50, description="Название жанра от 1 до 50 символов")

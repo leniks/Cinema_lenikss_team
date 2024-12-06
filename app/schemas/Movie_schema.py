@@ -1,9 +1,10 @@
 from enum import Enum
-from pydantic import BaseModel, Field, validator, field_validator
+from pydantic import BaseModel, Field, validator, field_validator, ConfigDict
 from datetime import date, datetime
 from typing import Optional, List
 
 class SMovie(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
 
     id: int
     title: str = Field(..., min_length=1, max_length=50, description="Название фильма, от 1 до 50 символов")
@@ -22,5 +23,3 @@ class SMovie(BaseModel):
             raise ValueError("Дата выхода не может быть в будущем.")
         return value
 
-    class Config:
-        orm_mode = True  # Позволяет использовать Pydantic с ORM моделями
