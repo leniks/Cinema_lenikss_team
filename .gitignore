@@ -1,7 +1,7 @@
-#/.venv/
-#/app/migration/versions/
-#app/migration/README
-#app/migration/script.py.mako
+/.venv/
+/app/migration/versions/
+app/migration/README
+app/migration/script.py.mako
 
 # Python
 __pycache__/
@@ -17,8 +17,8 @@ versions/**
 !versions/
 
 # Директории виртуальных окружений
-env/
-venv/
+.env/
+.venv/
 .env
 
 # Логи
