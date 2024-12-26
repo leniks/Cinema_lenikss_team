@@ -89,10 +89,8 @@ watchlists_data = [
 
 
 async def clear_tables(session):
-    await session.execute(text("DELETE FROM favorites"))
     await session.execute(text("DELETE FROM movie_genres"))
     await session.execute(text("DELETE FROM users"))
-    await session.execute(text("DELETE FROM watchlists"))
     await session.execute(text("DELETE FROM movies"))
     await session.execute(text("DELETE FROM genres"))
 
