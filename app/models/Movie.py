@@ -17,7 +17,6 @@ class Movie(Base):
     rating: Mapped[int] = mapped_column(Integer)  # рейтинг от 1 до 10
     poster_url: Mapped[str_null_true]
 
-    reviews: Mapped[list["Review"]] = relationship("Review", back_populates="movie")
     genres: Mapped[list["Genre"]] = relationship("Genre",
                                                  secondary=movie_genres,
                                                  back_populates="movies",

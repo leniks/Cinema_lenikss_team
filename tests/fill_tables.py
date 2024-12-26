@@ -8,7 +8,6 @@ from sqlalchemy.util import await_only
 from app.models.Watchlist import Watchlist
 from app.models.Favorite import Favorite
 from app.models.User import User
-from app.models.Review import Review
 from app.models.Genre import Genre
 from app.models.Movie import Movie
 import random
@@ -64,30 +63,6 @@ genres_data = [
     {"name": "Animation"},
 ]
 
-
-reviews_data = [
-    {"user_id": 1, "movie_id": 1, "rating": 8,
-     "comment": 'Great movie!'},
-    {"user_id": 2, 'movie_id': 2, 'rating': 7,
-     'comment': 'Pretty good!'},
-    {'user_id': 3, 'movie_id': 3, 'rating': 9,
-     'comment': 'Amazing!'},
-    {'user_id': 4, 'movie_id': 4, 'rating': 6,
-     'comment': 'Not bad.'},
-    {'user_id': 5, 'movie_id': 5, 'rating': 8,
-     'comment': 'Enjoyed it!'},
-    {'user_id': 6, 'movie_id': 6, 'rating': 7,
-     'comment': 'It was okay.'},
-    {'user_id': 7, 'movie_id': 7, 'rating': 9,
-     'comment': 'Loved it!'},
-    {'user_id': 8, 'movie_id': 8, 'rating': 5,
-     'comment': 'Could be better.'},
-    {'user_id': 9, 'movie_id': 9, 'rating': 10,
-     'comment': 'Best movie ever!'},
-    {'user_id': 10, 'movie_id': 10, 'rating': 6,
-     'comment': 'Just fine.'},
-]
-
 favorites_data = [
     {"user_id": 1, 'movie_id': 1},
     {'user_id': 2, 'movie_id': 2},
@@ -118,7 +93,6 @@ watchlists_data = [
 async def clear_tables(session):
     await session.execute(text("DELETE FROM favorites"))
     await session.execute(text("DELETE FROM movie_genres"))
-    await session.execute(text("DELETE FROM reviews"))
     await session.execute(text("DELETE FROM users"))
     await session.execute(text("DELETE FROM watchlists"))
     await session.execute(text("DELETE FROM movies"))
