@@ -5,8 +5,6 @@ import asyncio
 from sqlalchemy import text, select
 from sqlalchemy.util import await_only
 
-from app.models.Watchlist import Watchlist
-from app.models.Favorite import Favorite
 from app.models.User import User
 from app.models.Genre import Genre
 from app.models.Movie import Movie
@@ -63,38 +61,9 @@ genres_data = [
     {"name": "Animation"},
 ]
 
-favorites_data = [
-    {"user_id": 1, 'movie_id': 1},
-    {'user_id': 2, 'movie_id': 2},
-    {'user_id': 3, 'movie_id': 3},
-    {'user_id': 4, 'movie_id': 4},
-    {'user_id': 5, 'movie_id': 5},
-    {'user_id': 6, 'movie_id': 6},
-    {'user_id': 7, 'movie_id': 7},
-    {'user_id': 8, 'movie_id': 8},
-    {'user_id': 9, 'movie_id': 9},
-    {'user_id': 10, 'movie_id': 10},
-]
-
-watchlists_data = [
-    {"user_id": 1, 'movie_id': 2},
-    {'user_id': 2, 'movie_id': 3},
-    {'user_id': 3, 'movie_id': 4},
-    {'user_id': 4, 'movie_id': 5},
-    {'user_id': 5, 'movie_id': 6},
-    {'user_id': 6, 'movie_id': 7},
-    {'user_id': 7, 'movie_id': 8},
-    {'user_id': 8, 'movie_id': 9},
-    {'user_id': 9, 'movie_id': 10},
-    {'user_id':10 , 'movie_id' :1}
-]
-
-
 async def clear_tables(session):
-    await session.execute(text("DELETE FROM favorites"))
     await session.execute(text("DELETE FROM movie_genres"))
     await session.execute(text("DELETE FROM users"))
-    await session.execute(text("DELETE FROM watchlists"))
     await session.execute(text("DELETE FROM movies"))
     await session.execute(text("DELETE FROM genres"))
 

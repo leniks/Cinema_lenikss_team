@@ -21,5 +21,3 @@ class Movie(Base):
                                                  secondary=movie_genres,
                                                  back_populates="movies",
                                                  lazy='joined')
-    favorites: Mapped[list["Favorite"]] = relationship("Favorite", back_populates="movie")
-    watchlists: Mapped[list["Watchlist"]] = relationship("Watchlist", back_populates="movie")

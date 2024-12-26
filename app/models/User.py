@@ -14,6 +14,3 @@ class User(Base):
 
     is_user: Mapped[bool] = mapped_column(default=True, server_default=text('true'), nullable=False)
     is_admin: Mapped[bool] = mapped_column(default=False, server_default=text('false'), nullable=False)
-
-    favorites: Mapped[list["Favorite"]] = relationship("Favorite", back_populates="user")
-    watchlists: Mapped[list["Watchlist"]] = relationship("Watchlist", back_populates="user")
