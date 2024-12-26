@@ -22,3 +22,10 @@ class RegisterUser(BaseModel):
     username: str = Field(..., min_length=1, max_length=50, description="Имя пользователя от 1 до 50 символов")
     email: EmailStr
     password: str = Field(..., min_length=8, description="пароль (минимум 8 символов)")
+
+
+class AuthUser(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    email: EmailStr
+    password: str = Field(..., min_length=8, description="пароль (минимум 8 символов)")

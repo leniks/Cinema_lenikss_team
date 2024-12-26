@@ -1,10 +1,11 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Response
 from app.services.auth_service import get_password_hash
 from app.services.users_service import UserService
-from app.schemas.User_schema import RegisterUser
+from app.schemas.User_schema import RegisterUser, AuthUser
+from app.services.dependencies_service import create_access_token
 
 
-router = APIRouter(prefix='/auth', tags=['Auth'])
+router = APIRouter(prefix='/auth', tags=['Авторизация / Аутентификация'])
 
 
 @router.post("/register/")
@@ -20,3 +21,14 @@ async def register_user(user_data: RegisterUser) -> dict:
     del user_dict['password']
     await UserService.add_user(**user_dict)
     return {'message': 'Вы успешно зарегистрированы!'}
+
+
+@router.post("/login/")
+async def auth_user(response: Response, user_data: AuthUser):
+    check = await UserService.authenticate_user(email=user_data.email, password=user_data.password)
+    if check is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+                            detail='Неверная почта или пароль')
+    access_token = create_access_token({"sub": str(check.id)})
+    response.set_cookie(key="users_access_token", value=access_token, httponly=True)
+    return {'access_token': access_token, 'refresh_token': None}

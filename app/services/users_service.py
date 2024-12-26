@@ -9,6 +9,9 @@ from app.models.Review import Review
 from app.models.Genre import Genre
 from app.models.Movie import Movie
 
+from app.services.auth_service import verify_password
+from app.schemas.User_schema import EmailStr
+
 
 class UserService:
 
@@ -31,3 +34,10 @@ class UserService:
                     await session.rollback()
                     raise e
                 return new_user
+
+    @classmethod
+    async def authenticate_user(cls, email: EmailStr, password: str):
+        user = await UserService.get_user_or_none_by_email(user_email=email)
+        if not user or verify_password(plain_password=password, hashed_password=user.hashed_password) is False:
+            return None
+        return user
