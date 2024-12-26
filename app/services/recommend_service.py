@@ -17,6 +17,7 @@ data = {
 
 df = pd.DataFrame(data)
 
+
 # Функция для преобразования жанров в бинарный вектор
 def genres_to_vector(all_genres, movie_genres):
     vector = [1 if genre in movie_genres else 0 for genre in all_genres]

@@ -2,8 +2,6 @@ from sqlalchemy import select
 from app.database import async_session_maker
 from sqlalchemy.exc import SQLAlchemyError
 
-from app.models.Watchlist import Watchlist
-from app.models.Favorite import Favorite
 from app.models.User import User
 from app.models.Genre import Genre
 from app.models.Movie import Movie

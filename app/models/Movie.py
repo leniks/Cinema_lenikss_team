@@ -3,6 +3,9 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.ext.declarative import declarative_base
 
 from app.models.movie_genres import movie_genres
+from app.models.user_favorites import user_favorites
+from app.models.user_watchlist import user_watchlist
+
 from app.database import Base, str_uniq, str_null_true
 
 
@@ -22,5 +25,11 @@ class Movie(Base):
                                                  secondary=movie_genres,
                                                  back_populates="movies",
                                                  lazy='joined')
-    favorites: Mapped[list["Favorite"]] = relationship("Favorite", back_populates="movie")
-    watchlists: Mapped[list["Watchlist"]] = relationship("Watchlist", back_populates="movie")
+    favorites_users: Mapped[list["User"]] = relationship("User",
+                                                 secondary=user_favorites,
+                                                 back_populates="favorites",
+                                                 lazy='joined')
+    watchlists_users: Mapped[list["User"]] = relationship("User",
+                                                 secondary=user_watchlist,
+                                                 back_populates="watchlists",
+                                                 lazy='joined')
