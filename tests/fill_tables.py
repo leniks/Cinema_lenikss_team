@@ -48,18 +48,26 @@ movies_data = [
      "release_date": datetime.strptime("2021-10-01", '%Y-%m-%d'), "duration": 115, "rating": 6, "poster_url": None}
 ]
 
-genres_data = [
-    {"name": "Action"},
-    {"name": "Drama"},
-    {"name": "Comedy"},
-    {"name": "Horror"},
-    {"name": "Thriller"},
-    {"name": "Romance"},
-    {"name": "Sci-Fi"},
-    {"name": "Fantasy"},
-    {"name": "Documentary"},
-    {"name": "Animation"},
-]
+genres_data = [{'id': 12, "name": 'Adventure'},
+               {'id': 14, "name": 'Fantasy'},
+               {'id': 16, "name": 'Animation'},
+               {'id': 18, "name": 'Drama'},
+               {'id': 27, "name": 'Horror'},
+               {'id': 28, "name": 'Action'},
+               {'id': 35, "name": 'Comedy'},
+               {'id': 36, "name": 'History'},
+               {'id': 37, "name": 'Western'},
+               {'id': 53, "name": 'Thriller'},
+               {'id': 80, "name": 'Crime'},
+               {'id': 99, "name": 'Documentary'},
+               {'id': 878, "name": 'Fiction'},
+               {'id': 9648, "name": 'Mystery'},
+               {'id': 10402, "name": 'Music'},
+               {'id': 10749, "name": 'Romance'},
+               {'id': 10751, "name": 'Family'},
+               {'id': 10752, "name": 'War'},
+               {'id': 10769, "name": 'Foreign'},
+               {'id': 10770, "name": 'Movie'}]
 
 favorites_data = [
     {"user_id": 1, 'movie_id': 1},
@@ -124,6 +132,7 @@ async def fill_database():
             # Заполнение жанров
             genres = []
             for genre in genres_data:
+                print(genre)
                 new_genre = Genre(**genre)
                 session.add(new_genre)
                 genres.append(new_genre)
