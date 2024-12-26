@@ -47,7 +47,7 @@ movies_data = [
     {"title": "Movie 9", "description": "Description 9", "release_date": datetime.strptime("2021-09-01", '%Y-%m-%d'),
      "duration": 125, "rating": 10, "poster_url": None},
     {"title": "Movie 10", "description": "Description 10",
-     "release_date": datetime.strptime("2021-10-01", '%Y-%m-%d'), "duration": 115, "rating": 6, "poster_url":None}
+     "release_date": datetime.strptime("2021-10-01", '%Y-%m-%d'), "duration": 115, "rating": 6, "poster_url": None}
 ]
 
 genres_data = [
@@ -86,7 +86,7 @@ watchlists_data = [
     {'user_id': 7, 'movie_id': 8},
     {'user_id': 8, 'movie_id': 9},
     {'user_id': 9, 'movie_id': 10},
-    {'user_id':10 , 'movie_id' :1}
+    {'user_id': 10, 'movie_id': 1}
 ]
 
 
@@ -98,8 +98,10 @@ async def clear_tables(session):
     await session.execute(text("DELETE FROM movies"))
     await session.execute(text("DELETE FROM genres"))
 
+
 async def return_true_with_probability():
     return random.random() < 0.2  # 0.2 соответствует 20%
+
 
 async def fill_database():
     async with async_session_maker() as session:
@@ -143,6 +145,7 @@ async def fill_database():
             session.add(new_movie)
 
             await session.commit()
+
 
 if __name__ == "__main__":
     asyncio.run(fill_database())
