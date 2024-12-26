@@ -16,6 +16,7 @@ class Movie(Base):
     duration: Mapped[int] = mapped_column(Integer)  # продолжительность в минутах
     rating: Mapped[int] = mapped_column(Integer)  # рейтинг от 1 до 10
     poster_url: Mapped[str_null_true]
+    movie_url: Mapped[str_null_true]
 
     genres: Mapped[list["Genre"]] = relationship("Genre",
                                                  secondary=movie_genres,
