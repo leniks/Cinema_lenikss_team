@@ -1,9 +1,12 @@
-from fastapi import APIRouter, HTTPException, status, Response
+from fastapi import APIRouter, HTTPException, status, Response, Depends
+
 from app.services.auth_service import get_password_hash
 from app.services.users_service import UserService
-from app.schemas.User_schema import RegisterUser, AuthUser
-from app.services.dependencies_service import create_access_token
+from app.services.dependencies_service import create_access_token, get_current_user
 
+from app.schemas.User_schema import RegisterUser, AuthUser
+
+from app.models.User import User
 
 router = APIRouter(prefix='/auth', tags=['Авторизация / Аутентификация'])
 
@@ -32,3 +35,9 @@ async def auth_user(response: Response, user_data: AuthUser):
     access_token = create_access_token({"sub": str(check.id)})
     response.set_cookie(key="users_access_token", value=access_token, httponly=True)
     return {'access_token': access_token, 'refresh_token': None}
+
+
+@router.get("/me/")
+async def get_me(user_data: User = Depends(get_current_user)):
+    return user_data
+

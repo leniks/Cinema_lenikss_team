@@ -22,6 +22,13 @@ class UserService:
             return result.unique().scalar_one_or_none()
 
     @classmethod
+    async def get_user_or_none_by_id(cls, user_id: int):
+        async with async_session_maker() as session:
+            query = select(User).filter_by(id=user_id)
+            result = await session.execute(query)
+            return result.unique().scalar_one_or_none()
+
+    @classmethod
     async def add_user(cls, username: str, email: str, hashed_password: str):
         async with async_session_maker() as session:
             async with session.begin():
