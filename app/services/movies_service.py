@@ -4,7 +4,6 @@ from app.database import async_session_maker
 from app.models.Watchlist import Watchlist
 from app.models.Favorite import Favorite
 from app.models.User import User
-from app.models.Review import Review
 from app.models.Genre import Genre
 from app.models.Movie import Movie
 
