@@ -16,6 +16,6 @@ async def register_user(user_data: RegisterUser) -> dict:
             detail='Пользователь уже существует'
         )
     user_dict = user_data.dict()
-    user_dict['password'] = get_password_hash(user_data.password)
+    user_dict['hashed_password'] = get_password_hash(user_data.password)
     await UserService.add_user(**user_dict)
     return {'message': 'Вы успешно зарегистрированы!'}

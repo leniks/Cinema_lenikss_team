@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Request
 from app.routers.movies_router import router as movies_router
+from app.routers.users_router import router as router_users
 from fastapi.responses import JSONResponse
 
 app = FastAPI()
@@ -13,13 +14,11 @@ async def general_exception_handler(request: Request, exc: Exception):
     )
 
 
-@app.get("/test")
-async def test_route():
-    return {"message": "Hello, World!"}
-
 
 @app.get("/")
 def home_page():
     return {"message": "Your Cinema"}
 
+
 app.include_router(movies_router)
+app.include_router(router_users)
