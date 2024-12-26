@@ -1,0 +1,4 @@
+/.venv/
+/app/migration/versions/
+app/migration/README
+app/migration/script.py.mako
