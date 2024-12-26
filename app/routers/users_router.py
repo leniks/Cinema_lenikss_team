@@ -41,3 +41,8 @@ async def auth_user(response: Response, user_data: AuthUser):
 async def get_me(user_data: User = Depends(get_current_user)):
     return user_data
 
+
+@router.post("/logout/")
+async def logout_user(response: Response):
+    response.delete_cookie(key="users_access_token")
+    return {'message': 'Пользователь успешно вышел из системы'}
