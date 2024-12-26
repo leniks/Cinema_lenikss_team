@@ -64,29 +64,6 @@ genres_data = [
     {"name": "Animation"},
 ]
 
-movie_genres_data = [
-    {"movie_id": 1, "genre_id": 1},  # Movie 1 - Action
-    {"movie_id": 1, "genre_id": 2},  # Movie 1 - Drama
-    {"movie_id": 2, "genre_id": 3},  # Movie 2 - Comedy
-    {"movie_id": 2, "genre_id": 1},  # Movie 2 - Action
-    {"movie_id": 3, "genre_id": 1},  # Movie 3 - Action
-    {"movie_id": 3, "genre_id": 4},  # Movie 3 - Thriller
-    {"movie_id": 4, "genre_id": 2},  # Movie 4 - Drama
-    {"movie_id": 4, "genre_id": 5},  # Movie 4 - Romance
-    {"movie_id": 5, "genre_id": 3},  # Movie 5 - Comedy
-    {"movie_id": 5, "genre_id": 4},  # Movie 5 - Thriller
-    {"movie_id": 6, "genre_id": 1},  # Movie 6 - Action
-    {"movie_id": 6, "genre_id": 5},  # Movie 6 - Romance
-    {"movie_id": 7, "genre_id": 2},  # Movie 7 - Drama
-    {"movie_id": 7, "genre_id": 4},  # Movie 7 - Thriller
-    {"movie_id": 8, "genre_id": 3},  # Movie 8 - Comedy
-    {"movie_id": 8, "genre_id": 5},  # Movie 8 - Romance
-    {"movie_id": 9, "genre_id": 1},  # Movie 9 - Action
-    {"movie_id": 9, "genre_id": 2},  # Movie 9 - Drama
-    {"movie_id": 10, "genre_id": 4}, # Movie 10 - Thriller
-    {"movie_id": 10, "genre_id": 5}, # Movie 10 - Romance
-]
-
 
 reviews_data = [
     {"user_id": 1, "movie_id": 1, "rating": 8,
