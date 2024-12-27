@@ -1,7 +1,9 @@
 from fastapi import APIRouter, HTTPException, status, Response, Depends
+import asyncio
 
 from app.services.auth_service import get_password_hash
 from app.services.users_service import UserService
+from app.services.movies_service import MovieService
 from app.services.dependencies_service import create_access_token, get_current_user
 
 from app.schemas.User_schema import RegisterUser, AuthUser
@@ -46,3 +48,12 @@ async def get_me(user_data: User = Depends(get_current_user)):
 async def logout_user(response: Response):
     response.delete_cookie(key="users_access_token")
     return {'message': 'Пользователь успешно вышел из системы'}
+
+
+@router.get("/watchlist/")
+async def get_watchlist(user_data: User = Depends(get_current_user)):
+    favorite_movies_ids = user_data.favorites
+    # return favorite_movies_ids
+    movies = [movie.title for movie in favorite_movies_ids]
+    return movies
+
