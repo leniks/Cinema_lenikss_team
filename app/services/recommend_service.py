@@ -1,8 +1,7 @@
 import pandas as pd
-from sklearn.metrics import jaccard_score
 import numpy as np
 
-# Пример набора данных
+# Пример данных
 data = {
     'film_id': [1, 2, 3, 4, 5],
     'title': ['Film A', 'Film B', 'Film C', 'Film D', 'Film E'],
@@ -17,45 +16,57 @@ data = {
 
 df = pd.DataFrame(data)
 
-# Функция для преобразования жанров в бинарный вектор
+
+# Преобразуем жанры в бинарный вектор
 def genres_to_vector(all_genres, movie_genres):
-    vector = [1 if genre in movie_genres else 0 for genre in all_genres]
-    return vector
+    return [1 if genre in movie_genres else 0 for genre in all_genres]
 
 
-# Собираем список всех возможных жанров
-all_genres = list(set([genre for genres in df['genres'] for genre in genres]))
+# Собираем список всех уникальных жанров
+all_genres = list(set(genre for genres in df['genres'] for genre in genres))
 
-# Преобразуем жанры каждого фильма в бинарный вектор
+# Добавляем вектор жанров для каждого фильма
 df['genre_vector'] = df['genres'].apply(lambda x: genres_to_vector(all_genres, x))
 
 
-# Функция для вычисления коэффициента Жаккара между фильмами
-def jaccard_similarity(movie1, movie2):
-    intersection = np.sum(np.minimum(movie1, movie2))
-    union = np.sum(np.maximum(movie1, movie2))
-    return intersection / union if union != 0 else 0
+# Функция для объединения жанров нескольких фильмов
+def combine_genre_vectors(selected_movies, df, all_genres):
+    combined_vector = [0] * len(all_genres)
+    for movie_title in selected_movies:
+        movie_vector = df[df['title'] == movie_title]['genre_vector'].iloc[0]
+        combined_vector = [max(combined_vector[i], movie_vector[i]) for i in range(len(all_genres))]
+    return combined_vector
 
 
 # Функция для получения рекомендаций
-def recommend_movie(movie_title, df=df):
-    # Получаем вектор жанров для выбранного фильма
-    movie_idx = df[df['title'] == movie_title].index[0]
-    movie_vector = df.iloc[movie_idx]['genre_vector']
+def recommend_movies_based_on_list(selected_movies, df=df):
+    # Создаем общий вектор интересов на основе выбранных фильмов
+    user_vector = combine_genre_vectors(selected_movies, df, all_genres)
 
-    # Считаем сходство с другими фильмами
+    # Считаем схожесть с каждым фильмом
     similarities = []
     for idx, row in df.iterrows():
-        if row['title'] != movie_title:  # Исключаем сам фильм
-            similarity = jaccard_similarity(movie_vector, row['genre_vector'])
-            similarities.append((row['title'], similarity))
+        similarity = jaccard_similarity(user_vector, row['genre_vector'])
+        similarities.append((row['title'], similarity))
 
-    # Сортируем фильмы по сходству
+    # Исключаем из рекомендаций фильмы, которые уже были просмотрены
+    similarities = [sim for sim in similarities if sim[0] not in selected_movies]
+
+    # Сортируем фильмы по схожести
     similarities.sort(key=lambda x: x[1], reverse=True)
 
-    # Возвращаем названия наиболее похожих фильмов
-    return [movie for movie, sim in similarities[:3]]  # Рекомендуем 3 фильма
+    # Возвращаем топ-3 рекомендации
+    return [movie for movie, sim in similarities[:3]]
+
+
+# Функция для вычисления коэффициента Жаккара
+def jaccard_similarity(vector1, vector2):
+    intersection = np.sum(np.minimum(vector1, vector2))
+    union = np.sum(np.maximum(vector1, vector2))
+    return intersection / union if union != 0 else 0
 
 
 # Пример использования
-print(recommend_movie('Film A'))
+watched_movies = ['Film A', 'Film C']
+recommendations = recommend_movies_based_on_list(watched_movies)
+print(f"Рекомендации на основе фильмов {watched_movies}: {recommendations}")
