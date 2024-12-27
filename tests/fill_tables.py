@@ -5,10 +5,7 @@ import asyncio
 from sqlalchemy import text, select
 from sqlalchemy.util import await_only
 
-from app.models.Watchlist import Watchlist
-from app.models.Favorite import Favorite
 from app.models.User import User
-from app.models.Review import Review
 from app.models.Genre import Genre
 from app.models.Movie import Movie
 import random
@@ -48,68 +45,29 @@ movies_data = [
     {"title": "Movie 9", "description": "Description 9", "release_date": datetime.strptime("2021-09-01", '%Y-%m-%d'),
      "duration": 125, "rating": 10, "poster_url": None},
     {"title": "Movie 10", "description": "Description 10",
-     "release_date": datetime.strptime("2021-10-01", '%Y-%m-%d'), "duration": 115, "rating": 6, "poster_url":None}
+     "release_date": datetime.strptime("2021-10-01", '%Y-%m-%d'), "duration": 115, "rating": 6, "poster_url": None}
 ]
 
-genres_data = [
-    {"name": "Action"},
-    {"name": "Drama"},
-    {"name": "Comedy"},
-    {"name": "Horror"},
-    {"name": "Thriller"},
-    {"name": "Romance"},
-    {"name": "Sci-Fi"},
-    {"name": "Fantasy"},
-    {"name": "Documentary"},
-    {"name": "Animation"},
-]
-
-movie_genres_data = [
-    {"movie_id": 1, "genre_id": 1},  # Movie 1 - Action
-    {"movie_id": 1, "genre_id": 2},  # Movie 1 - Drama
-    {"movie_id": 2, "genre_id": 3},  # Movie 2 - Comedy
-    {"movie_id": 2, "genre_id": 1},  # Movie 2 - Action
-    {"movie_id": 3, "genre_id": 1},  # Movie 3 - Action
-    {"movie_id": 3, "genre_id": 4},  # Movie 3 - Thriller
-    {"movie_id": 4, "genre_id": 2},  # Movie 4 - Drama
-    {"movie_id": 4, "genre_id": 5},  # Movie 4 - Romance
-    {"movie_id": 5, "genre_id": 3},  # Movie 5 - Comedy
-    {"movie_id": 5, "genre_id": 4},  # Movie 5 - Thriller
-    {"movie_id": 6, "genre_id": 1},  # Movie 6 - Action
-    {"movie_id": 6, "genre_id": 5},  # Movie 6 - Romance
-    {"movie_id": 7, "genre_id": 2},  # Movie 7 - Drama
-    {"movie_id": 7, "genre_id": 4},  # Movie 7 - Thriller
-    {"movie_id": 8, "genre_id": 3},  # Movie 8 - Comedy
-    {"movie_id": 8, "genre_id": 5},  # Movie 8 - Romance
-    {"movie_id": 9, "genre_id": 1},  # Movie 9 - Action
-    {"movie_id": 9, "genre_id": 2},  # Movie 9 - Drama
-    {"movie_id": 10, "genre_id": 4}, # Movie 10 - Thriller
-    {"movie_id": 10, "genre_id": 5}, # Movie 10 - Romance
-]
-
-
-reviews_data = [
-    {"user_id": 1, "movie_id": 1, "rating": 8,
-     "comment": 'Great movie!'},
-    {"user_id": 2, 'movie_id': 2, 'rating': 7,
-     'comment': 'Pretty good!'},
-    {'user_id': 3, 'movie_id': 3, 'rating': 9,
-     'comment': 'Amazing!'},
-    {'user_id': 4, 'movie_id': 4, 'rating': 6,
-     'comment': 'Not bad.'},
-    {'user_id': 5, 'movie_id': 5, 'rating': 8,
-     'comment': 'Enjoyed it!'},
-    {'user_id': 6, 'movie_id': 6, 'rating': 7,
-     'comment': 'It was okay.'},
-    {'user_id': 7, 'movie_id': 7, 'rating': 9,
-     'comment': 'Loved it!'},
-    {'user_id': 8, 'movie_id': 8, 'rating': 5,
-     'comment': 'Could be better.'},
-    {'user_id': 9, 'movie_id': 9, 'rating': 10,
-     'comment': 'Best movie ever!'},
-    {'user_id': 10, 'movie_id': 10, 'rating': 6,
-     'comment': 'Just fine.'},
-]
+genres_data = [{'id': 12, "name": 'Adventure'},
+               {'id': 14, "name": 'Fantasy'},
+               {'id': 16, "name": 'Animation'},
+               {'id': 18, "name": 'Drama'},
+               {'id': 27, "name": 'Horror'},
+               {'id': 28, "name": 'Action'},
+               {'id': 35, "name": 'Comedy'},
+               {'id': 36, "name": 'History'},
+               {'id': 37, "name": 'Western'},
+               {'id': 53, "name": 'Thriller'},
+               {'id': 80, "name": 'Crime'},
+               {'id': 99, "name": 'Documentary'},
+               {'id': 878, "name": 'Fiction'},
+               {'id': 9648, "name": 'Mystery'},
+               {'id': 10402, "name": 'Music'},
+               {'id': 10749, "name": 'Romance'},
+               {'id': 10751, "name": 'Family'},
+               {'id': 10752, "name": 'War'},
+               {'id': 10769, "name": 'Foreign'},
+               {'id': 10770, "name": 'Movie'}]
 
 favorites_data = [
     {"user_id": 1, 'movie_id': 1},
@@ -134,21 +92,20 @@ watchlists_data = [
     {'user_id': 7, 'movie_id': 8},
     {'user_id': 8, 'movie_id': 9},
     {'user_id': 9, 'movie_id': 10},
-    {'user_id':10 , 'movie_id' :1}
+    {'user_id': 10, 'movie_id': 1}
 ]
 
 
 async def clear_tables(session):
-    await session.execute(text("DELETE FROM favorites"))
     await session.execute(text("DELETE FROM movie_genres"))
-    await session.execute(text("DELETE FROM reviews"))
     await session.execute(text("DELETE FROM users"))
-    await session.execute(text("DELETE FROM watchlists"))
     await session.execute(text("DELETE FROM movies"))
     await session.execute(text("DELETE FROM genres"))
 
+
 async def return_true_with_probability():
     return random.random() < 0.2  # 0.2 соответствует 20%
+
 
 async def fill_database():
     async with async_session_maker() as session:
@@ -175,6 +132,7 @@ async def fill_database():
             # Заполнение жанров
             genres = []
             for genre in genres_data:
+                print(genre)
                 new_genre = Genre(**genre)
                 session.add(new_genre)
                 genres.append(new_genre)
@@ -192,6 +150,7 @@ async def fill_database():
             session.add(new_movie)
 
             await session.commit()
+
 
 if __name__ == "__main__":
     asyncio.run(fill_database())

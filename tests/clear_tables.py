@@ -8,7 +8,6 @@ from sqlalchemy.util import await_only
 from app.models.Watchlist import Watchlist
 from app.models.Favorite import Favorite
 from app.models.User import User
-from app.models.Review import Review
 from app.models.Genre import Genre
 from app.models.Movie import Movie
 import random
@@ -19,7 +18,6 @@ from app.database import async_session_maker, Base
 async def clear_tables(session):
     await session.execute(text("DELETE FROM favorites"))
     await session.execute(text("DELETE FROM movie_genres"))
-    await session.execute(text("DELETE FROM reviews"))
     await session.execute(text("DELETE FROM users"))
     await session.execute(text("DELETE FROM watchlists"))
     await session.execute(text("DELETE FROM movies"))

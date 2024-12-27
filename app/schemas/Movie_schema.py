@@ -3,6 +3,7 @@ from pydantic import BaseModel, Field, validator, field_validator, ConfigDict
 from datetime import date, datetime
 from typing import Optional, List
 
+
 class SMovie(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
