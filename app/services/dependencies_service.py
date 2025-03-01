@@ -6,7 +6,7 @@ from fastapi import Request, HTTPException, status, Depends
 from jose import jwt, JWTError
 from datetime import datetime, timezone
 from app.config import get_auth_data
-from app.exceptions.exceptions import TokenExpiredException, NoJwtException, NoUserIdException, ForbiddenException
+
 from app.services.users_service import UserService
 
 

@@ -27,25 +27,25 @@ users_data = [
 
 movies_data = [
     {"title": "Movie 1", "description": "Description 1", "release_date": datetime.strptime("2021-01-01", '%Y-%m-%d'),
-     "duration": 120, "rating": 8, "poster_url": None},
+     "duration": 120, "rating": 8},
     {"title": "Movie 2", "description": "Description 2", "release_date": datetime.strptime("2021-02-01", '%Y-%m-%d'),
-     "duration": 90, "rating": 7, "poster_url": None},
+     "duration": 90, "rating": 7},
     {"title": "Movie 3", "description": "Description 3", "release_date": datetime.strptime("2021-03-01", '%Y-%m-%d'),
-     "duration": 150, "rating": 9, "poster_url": None},
+     "duration": 150, "rating": 9},
     {"title": "Movie 4", "description": "Description 4", "release_date": datetime.strptime("2021-04-01", '%Y-%m-%d'),
-     "duration": 110, "rating": 6, "poster_url": None},
+     "duration": 110, "rating": 6},
     {"title": "Movie 5", "description": "Description 5", "release_date": datetime.strptime("2021-05-01", '%Y-%m-%d'),
-     "duration": 130, "rating": 8, "poster_url": None},
+     "duration": 130, "rating": 8},
     {"title": "Movie 6", "description": "Description 6", "release_date": datetime.strptime("2021-06-01", '%Y-%m-%d'),
-     "duration": 95, "rating": 7, "poster_url": None},
+     "duration": 95, "rating": 7},
     {"title": "Movie 7", "description": "Description 7", "release_date": datetime.strptime("2021-07-01", '%Y-%m-%d'),
-     "duration": 140, "rating": 9, "poster_url": None},
+     "duration": 140, "rating": 9},
     {"title": "Movie 8", "description": "Description 8", "release_date": datetime.strptime("2021-08-01", '%Y-%m-%d'),
-     "duration": 100, "rating": 5, "poster_url": None},
+     "duration": 100, "rating": 5},
     {"title": "Movie 9", "description": "Description 9", "release_date": datetime.strptime("2021-09-01", '%Y-%m-%d'),
-     "duration": 125, "rating": 10, "poster_url": None},
+     "duration": 125, "rating": 10},
     {"title": "Movie 10", "description": "Description 10",
-     "release_date": datetime.strptime("2021-10-01", '%Y-%m-%d'), "duration": 115, "rating": 6, "poster_url": None}
+     "release_date": datetime.strptime("2021-10-01", '%Y-%m-%d'), "duration": 115, "rating": 6}
 ]
 
 genres_data = [{'id': 12, "name": 'Adventure'},
