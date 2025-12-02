@@ -1,7 +1,11 @@
 docker-compose up -d (развертывание бд из корня)
-
 alembic revision --autogenerate -m "Migration" (создание миграции)
-
 alembic upgrade head (применение миграции)
 
-uvicorn app.main:app --reload (запуск сервиса из корня) 
+uvicorn app.main:app --reload --port 8000 (запуск сервиса из корня)
+uvicorn app.main:app --reload --port 8001
+
+docker-compose down -v
+docker-compose ps
+docker-compose logs kafka
+docker exec -it kafka kafka-topics --list --bootstrap-server kafka:9093
